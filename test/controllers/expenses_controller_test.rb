@@ -4,7 +4,8 @@ class ExpensesControllerTest < ActionController::TestCase
   setup do
     @expense1 = expenses(:one)
     @expense2 = expenses(:two)
-    @expense3 = expenses(:three)
+    @empty_desc = expenses(:empty_desc)
+    @invalid_amount = expenses(:invalid_amount)
   end
 
   test "should get index" do
@@ -50,10 +51,14 @@ class ExpensesControllerTest < ActionController::TestCase
   end
   
   test "should reject empty expense" do
-    assert @expense3.invalid?, @expense3.errors.full_messages.inspect
+    assert @empty_desc.invalid?, @empty_desc.errors.full_messages.inspect
     assert_no_difference('Expense.count') do
-      post :create, expense: { amount: @expense3.amount, date: @expense3.date, description: @expense3.description }
+      post :create, expense: { amount: @empty_desc.amount, date: @empty_desc.date, description: @empty_desc.description }
       #assert_redirected_to expense_path(:controller => "expense", :action => "new") pippo
     end
+  end
+  
+  test "should reject invalid amount expense" do
+    assert @invalid_amount.invalid?, @invalid_amount.errors.full_messages.inspect
   end
 end

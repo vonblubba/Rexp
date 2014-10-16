@@ -10,7 +10,12 @@ two:
   description: MyText2
   amount: 9.99
 
-three:
+empty_desc:
   date: 2014-10-16
   description: 
   amount: 9.99
+  
+invalid_amount:
+  date: 2014-10-16
+  description: invalid amount
+  amount: 0
